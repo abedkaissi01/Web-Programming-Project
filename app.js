@@ -2,28 +2,39 @@ var express = require ('express');
 var app = express ();
 var serv = require ('http').Server (app);
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
 //the following is to connect to the mysql database for the login system
-const mysqlDB = require('mysql');
+/* const mysqlDB = require('mysql');
 const connection = mysqlDB.createConnection({
     host: 'localhost',
     username: 'username',
     password: 'password',
-    database: 'mysql',
+    database: 'mysql', 
+    port: '2000'
   });
 
   connection.connect((err) => { //exception in case we encounter an error.
     if(err){
-      console.log('Cannot connect to DB at this time, please try again later.');
+      console.log('Error: ' + err.message);
       return;
     }
-    console.log('You are connected!');
-  });
+    else{
+        console.log('You are connected!');
+    }
+  }); */
 
-  connection.end((err) => {});
+  /* connection.end((err) => {});
 // You can query into the mysql database using this code
   con.query('INSERT INTO users SET ?', this.id, (err, res) => {
     if(err) throw err;
-  });
+  }); */
   //I am supposed to do the same for password but im still not sure of the variables we shoud use.
 
 app.get ('/', function (req, res) {
